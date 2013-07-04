@@ -1,6 +1,7 @@
 package glfw3
 
 //#cgo LDFLAGS: -lglfw
+//#cgo darwin LDFLAGS: -framework Cocoa -framework OpenGL -framework IOKit /usr/local/lib/libglfw3.a
 //#include <GLFW/glfw3.h>
 import "C"
 
