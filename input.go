@@ -426,7 +426,7 @@ func JoystickPresent(joy Joystick) bool {
 }
 
 //GetJoystickAxes returns a slice of axis values.
-func GetJoystickAxes(joy Joystick) ([]float32, error) {
+func (joy Joystick)Axes() ([]float32, error) {
 	var length int
 
 	axis := C.glfwGetJoystickAxes(C.int(joy), (*C.int)(unsafe.Pointer(&length)))
@@ -443,7 +443,7 @@ func GetJoystickAxes(joy Joystick) ([]float32, error) {
 }
 
 //GetJoystickButtons returns a slice of button values.
-func GetJoystickButtons(joy Joystick) ([]byte, error) {
+func (joy Joystick)Buttons() ([]byte, error) {
 	var length int
 
 	buttons := C.glfwGetJoystickButtons(C.int(joy), (*C.int)(unsafe.Pointer(&length)))
@@ -460,7 +460,7 @@ func GetJoystickButtons(joy Joystick) ([]byte, error) {
 }
 
 //GetJoystickName returns the name, encoded as UTF-8, of the specified joystick.
-func GetJoystickName(joy Joystick) (string, error) {
+func (joy Joystick)Name() (string, error) {
 	jn := C.glfwGetJoystickName(C.int(joy))
 	if jn == nil {
 		return "", errors.New("Joystick is not present.")
