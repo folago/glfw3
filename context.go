@@ -10,6 +10,9 @@ import (
 )
 
 //MakeContextCurrent makes the context of the window current.
+//Originally GLFW 3 passes a null pointer to detach the context.
+//But since we're using receievers, DetachCurrentContext should
+//be used instead.
 func (w *Window) MakeContextCurrent() {
 	C.glfwMakeContextCurrent(w.data)
 }
@@ -66,10 +69,5 @@ func ExtensionSupported(extension string) bool {
 	e := C.CString(extension)
 	defer C.free(unsafe.Pointer(e))
 
-	r := C.glfwExtensionSupported(e)
-
-	if r == C.GL_FALSE {
-		return false
-	}
-	return true
+	return glfwbool(C.glfwExtensionSupported(e))
 }
